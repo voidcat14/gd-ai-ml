@@ -1,23 +1,50 @@
-# Geometry Dash AI (ML)
+# AIChater
 
-A professional, cross-platform AI for playing Geometry Dash in real-time using Machine Learning.
+AIChater is a self-hosted, provider-agnostic AI chat platform. This repository started as `gd-ai-ml` and is being rebuilt into AIChater incrementally.
 
-## Features
-- **Real-Time Play**: Low-latency input and vision loop.
-- **Machine Learning**: Uses a Q-Learning agent to learn jump timings based on obstacle distance.
-- **Autonomous Calibration**: Automatically detects player and background colors.
-- **Visual Overlay**: Draws a "Hacker Vision" debug feed on top of the game (PlayerX, SpikeX, Distance).
-- **Cross-Platform**: Supports Windows, macOS, and Linux (X11/Wayland) via a Platform Abstraction Layer.
-- **Cheat-Free**: Uses screen-based data extraction rather than memory hacking.
+## Demo
 
-## Tech Stack
-- **Language**: C++ 17
-- **Build System**: CMake
-- **Libraries**: OpenCV, X11/Xtst (Linux), Win32 (Windows), Quartz (macOS).
+The web demo is deployed to GitHub Pages. GitHub Pages hosts the frontend only; real model API keys stay on the owner's backend.
 
-## How to Run
-1. Install dependencies (OpenCV, GLFW).
-2. Create a build directory: `mkdir build && cd build`
-3. Generate: `cmake ..`
-4. Compile: `make`
-5. Run: `./gd_ai`
+## Providers
+
+The planned backend supports:
+
+- OpenRouter
+- Anthropic Claude
+- Google Gemini
+- Ollama
+- llama.cpp
+- OpenAI-compatible APIs
+
+The server owner chooses the provider, model, endpoint, and API key. Visitors never need the owner's secret key.
+
+## Architecture
+
+```text
+GitHub Pages / Web UI
+        |
+        v
+AIChater API (FastAPI)
+        |
+        +-- OpenRouter
+        +-- Claude
+        +-- Gemini
+        +-- Ollama
+        +-- llama.cpp
+        +-- OpenAI-compatible
+```
+
+## GitHub Pages
+
+The `site/` directory contains the static demo. `.github/workflows/pages.yml` automatically deploys it on pushes to `master`.
+
+In GitHub, enable **Settings → Pages → Source: GitHub Actions** if Pages is not already enabled for the repository.
+
+## Security
+
+Never put provider API keys in `site/`, frontend JavaScript, GitHub Pages, or any public repository file. Keys belong in the server environment or a server-side secret manager.
+
+## Development
+
+The frontend is plain JavaScript/HTML/CSS for the first demo. The production backend is planned in Python/FastAPI with PostgreSQL and optional C++/CUDA local inference through llama.cpp.
