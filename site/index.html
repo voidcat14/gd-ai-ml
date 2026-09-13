@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="AIChater — a self-hosted, provider-agnostic AI chat interface.">
+  <title>AIChater</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="logo">✦</span><span>AIChater</span></div>
+    <button id="newChat" class="new-chat">+ New chat</button>
+    <div class="side-section">
+      <div class="side-label">Demo</div>
+      <button class="chat-item active">AIChater demo</button>
+    </div>
+    <div class="sidebar-bottom">
+      <button id="settingsBtn" class="side-action">⚙ Settings</button>
+      <div class="status"><span></span> Demo mode</div>
+    </div>
+  </aside>
+
+  <main class="app">
+    <header class="topbar">
+      <div class="model-wrap">
+        <span class="muted">Model</span>
+        <select id="model">
+          <option value="demo">AIChater Demo</option>
+          <option value="owner">Owner configured model</option>
+        </select>
+      </div>
+      <button id="clearBtn" class="icon-btn" title="Clear conversation">Clear</button>
+    </header>
+
+    <section id="messages" class="messages" aria-live="polite">
+      <div class="welcome">
+        <div class="welcome-icon">✦</div>
+        <h1>What can I help with?</h1>
+        <p>AIChater is a ChatGPT-style interface designed to work with the model provider chosen by the server owner.</p>
+        <div class="cards">
+          <button data-prompt="Explain how AI model providers work.">How do model providers work?</button>
+          <button data-prompt="Give me three ideas for a small AI project.">AI project ideas</button>
+          <button data-prompt="Explain OpenRouter in simple terms.">Explain OpenRouter</button>
+        </div>
+      </div>
+    </section>
+
+    <form id="chatForm" class="composer">
+      <textarea id="input" rows="1" placeholder="Message AIChater…" autocomplete="off"></textarea>
+      <button id="send" type="submit" aria-label="Send">↑</button>
+      <div class="hint">Demo mode · API keys stay on the owner's backend</div>
+    </form>
+  </main>
+
+  <dialog id="settings">
+    <form method="dialog" class="settings-card" id="settingsForm">
+      <div class="settings-head"><h2>AIChater settings</h2><button class="close" value="cancel">×</button></div>
+      <label>Backend URL <input id="backendUrl" type="url" placeholder="https://your-ai-server.example.com"></label>
+      <p class="help">GitHub Pages hosts the UI only. The server owner can connect this UI to a FastAPI backend that holds the provider API key.</p>
+      <label>Provider
+        <select id="provider">
+          <option>OpenRouter</option><option>Claude</option><option>Gemini</option><option>Ollama</option><option>llama.cpp</option><option>OpenAI-compatible</option>
+        </select>
+      </label>
+      <label>Model <input id="ownerModel" type="text" placeholder="Owner chooses this on the server"></label>
+      <button class="save" value="default">Save local demo settings</button>
+    </form>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>
